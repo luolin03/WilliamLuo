@@ -2,8 +2,13 @@ import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
+import Now from './components/Now'
+import News from './components/News'
 import Research from './components/Research'
+import Papers from './components/Papers'
 import Projects from './components/Projects'
+import Blog from './components/Blog'
+import Reading from './components/Reading'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import useScrollReveal from './hooks/useScrollReveal'
@@ -32,8 +37,13 @@ export default function App() {
       <main>
         <Hero />
         <About />
+        <Now />
+        <News />
         <Research />
+        <Papers />
         <Projects />
+        <Blog />
+        <Reading />
         <Contact />
       </main>
       <Footer />
