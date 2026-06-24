@@ -1,0 +1,70 @@
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--color-border);
+  transition: border-color 0.2s ease;
+}
+
+.project-item:first-child {
+  border-top: 1px solid var(--color-border);
+}
+
+.project-item:hover {
+  border-color: var(--color-border-hover);
+}
+
+.project-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.25rem;
+  color: var(--color-text);
+}
+
+.project-desc {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin: 0;
+  max-width: 460px;
+}
+
+.project-links {
+  display: flex;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.project-link {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  transition: color 0.2s ease;
+}
+
+.project-link:hover {
+  color: var(--color-accent);
+}
+
+.project-link::after {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .project-item {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

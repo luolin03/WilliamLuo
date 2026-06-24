@@ -1,0 +1,9 @@
+.footer {
+  padding: 2rem 0 3rem;
+}
+
+.footer-text {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}

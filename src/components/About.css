@@ -1,0 +1,8 @@
+.about-text {
+  max-width: 600px;
+}
+
+.about-text p {
+  font-size: 0.9375rem;
+  line-height: 1.8;
+}
