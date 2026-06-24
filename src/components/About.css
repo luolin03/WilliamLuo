@@ -4,5 +4,10 @@
 
 .about-text p {
   font-size: 0.9375rem;
-  line-height: 1.8;
+  line-height: 1.85;
+  margin-bottom: 1.25rem;
+}
+
+.about-text p:last-child {
+  margin-bottom: 0;
 }

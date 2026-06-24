@@ -1,8 +1,8 @@
 .contact-text {
   max-width: 460px;
   font-size: 0.9375rem;
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
+  line-height: 1.75;
+  margin-bottom: 1.75rem;
 }
 
 .social-links {
@@ -17,6 +17,7 @@
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   font-size: 0.8125rem;
+  font-weight: 500;
   color: var(--color-text-secondary);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -27,5 +28,5 @@
 .social-link:hover {
   color: var(--color-text);
   border-color: var(--color-border-hover);
-  background: #ecebe8;
+  background: var(--color-border);
 }

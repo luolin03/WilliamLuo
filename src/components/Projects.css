@@ -1,7 +1,4 @@
 .projects-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
   margin-top: 0.5rem;
 }
 
@@ -23,6 +20,10 @@
   border-color: var(--color-border-hover);
 }
 
+.project-info {
+  min-width: 0;
+}
+
 .project-title {
   font-size: 0.9375rem;
   font-weight: 600;
@@ -33,7 +34,7 @@
 
 .project-desc {
   font-size: 0.8125rem;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--color-text-secondary);
   margin: 0;
   max-width: 460px;
@@ -50,7 +51,7 @@
   align-items: center;
   gap: 0.375rem;
   font-size: 0.8125rem;
-  color: var(--color-text-secondary);
+  color: var(--color-text-tertiary);
   transition: color 0.2s ease;
 }
 
