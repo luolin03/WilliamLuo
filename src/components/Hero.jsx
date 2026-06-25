@@ -4,7 +4,7 @@ export default function Hero() {
   return (
     <header className="hero section reveal">
       <div className="container">
-        <img src="/avatar.jpg" alt="William Luo" className="hero-avatar" />
+        <img src={import.meta.env.BASE_URL + 'avatar.jpg'} alt="William Luo" className="hero-avatar" />
         <p className="hero-greeting">Hello, I'm</p>
         <h1 className="hero-name">William Luo</h1>
         <p className="hero-name-cn">罗林</p>
