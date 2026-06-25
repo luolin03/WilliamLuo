@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { marked } from 'marked'
 import './Blog.css'
 import { FiArrowLeft } from 'react-icons/fi'
@@ -25,11 +25,44 @@ const POSTS = [
   },
 ]
 
+// Local scroll-reveal for list view — survives mount/unmount cycles
+function useRevealOnMount(ref) {
+  const [revealed, setRevealed] = useState(false)
+
+  useEffect(() => {
+    setRevealed(false)
+    const el = ref.current
+    if (!el) return
+
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setRevealed(true)
+          obs.disconnect()
+        }
+      },
+      { threshold: 0.05 }
+    )
+    obs.observe(el)
+    // Guarantee visibility after a short grace period
+    const t = setTimeout(() => setRevealed(true), 350)
+    return () => {
+      obs.disconnect()
+      clearTimeout(t)
+    }
+  }, [ref])
+
+  return revealed
+}
+
 export default function Blog() {
   const [activeSlug, setActiveSlug] = useState(null)
+  const listRef = useRef(null)
+  const revealed = useRevealOnMount(listRef)
 
   const post = POSTS.find((p) => p.slug === activeSlug)
 
+  // ---- Post detail ----
   if (post) {
     return (
       <section className="section" style={{ paddingTop: '8rem' }}>
@@ -47,8 +80,18 @@ export default function Blog() {
     )
   }
 
+  // ---- Post list ----
   return (
-    <section id="blog" className="section reveal">
+    <section
+      id="blog"
+      className="section"
+      ref={listRef}
+      style={{
+        opacity: revealed ? 1 : 0,
+        transform: revealed ? 'translateY(0)' : 'translateY(20px)',
+        transition: 'opacity 0.6s ease, transform 0.6s ease',
+      }}
+    >
       <div className="container">
         <p className="section-label">Blog</p>
         <div className="blog-list">

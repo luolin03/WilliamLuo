@@ -188,8 +188,17 @@
 }
 
 .blog-post img {
+  max-width: 100%;
+  height: auto;
   border-radius: var(--radius);
   margin: 1.5rem 0;
+  border: 1px solid var(--color-border);
+}
+
+/* Hide images with broken/bad src (e.g. local Windows paths) */
+.blog-post img[src^='C:'],
+.blog-post img[src^='file:'] {
+  display: none;
 }
 
 @media (max-width: 600px) {
