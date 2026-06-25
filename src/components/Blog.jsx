@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import ReactMarkdown from 'react-markdown'
+import { useState, useEffect, useRef } from 'react'
+import { marked } from 'marked'
 import './Blog.css'
 import { FiArrowLeft } from 'react-icons/fi'
 
@@ -12,16 +12,41 @@ const POSTS = [
       'Welcome to my blog. Here I write about AI, engineering, and things I learn along the way.',
   },
   {
-    slug: '联机模式', 
-    title: '测试博客功能', 
-    date: '2025.06.25', 
-    description:
-      'Just a TEST', 
-  }, 
+    slug: '联机模式',
+    title: '测试博客功能',
+    date: '2025.06.25',
+    description: 'Just a TEST',
+  },
 ]
 
 export default function Blog() {
   const [activePost, setActivePost] = useState(null)
+  const [revealed, setRevealed] = useState(false)
+  const listRef = useRef(null)
+
+  // When switching back to list view, reveal it immediately
+  useEffect(() => {
+    if (!activePost && listRef.current) {
+      setRevealed(false)
+      const el = listRef.current
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setRevealed(true)
+            observer.disconnect()
+          }
+        },
+        { threshold: 0.05 }
+      )
+      observer.observe(el)
+      // Fallback: show after 300ms even if not in viewport
+      const timer = setTimeout(() => setRevealed(true), 300)
+      return () => {
+        observer.disconnect()
+        clearTimeout(timer)
+      }
+    }
+  }, [activePost])
 
   if (activePost) {
     return (
@@ -31,16 +56,21 @@ export default function Blog() {
             <FiArrowLeft size={14} />
             Back
           </button>
-          <article className="blog-post">
-            <ReactMarkdown>{activePost.content}</ReactMarkdown>
-          </article>
+          <article
+            className="blog-post"
+            dangerouslySetInnerHTML={{ __html: marked(activePost.content) }}
+          />
         </div>
       </section>
     )
   }
 
   return (
-    <section id="blog" className="section reveal">
+    <section
+      id="blog"
+      className={`section reveal${revealed ? ' revealed' : ''}`}
+      ref={listRef}
+    >
       <div className="container">
         <p className="section-label">Blog</p>
         <div className="blog-list">
@@ -51,7 +81,7 @@ export default function Blog() {
               onClick={async () => {
                 const res = await fetch(`/posts/${slug}.md`)
                 const content = await res.text()
-                setActivePost({ slug, title, content })
+                setActivePost({ content })
               }}
             >
               <div className="blog-info">
