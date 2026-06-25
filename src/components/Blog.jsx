@@ -11,6 +11,13 @@ const POSTS = [
     description:
       'Welcome to my blog. Here I write about AI, engineering, and things I learn along the way.',
   },
+  {
+    slug: '联机模式', 
+    title: '测试博客功能', 
+    date: '2025.06.25', 
+    description:
+      'Just a TEST', 
+  }, 
 ]
 
 export default function Blog() {
