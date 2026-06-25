@@ -50,7 +50,7 @@ export default function Blog() {
 
   if (activePost) {
     return (
-      <section id="blog" className="section">
+      <section id="blog" className="section" style={{ paddingTop: '8rem' }}>
         <div className="container">
           <button className="blog-back" onClick={() => setActivePost(null)}>
             <FiArrowLeft size={14} />
@@ -82,6 +82,7 @@ export default function Blog() {
                 const res = await fetch(`/posts/${slug}.md`)
                 const content = await res.text()
                 setActivePost({ content })
+                window.scrollTo(0, 0)
               }}
             >
               <div className="blog-info">

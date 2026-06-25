@@ -115,7 +115,7 @@
 .blog-post p {
   font-size: 0.9375rem;
   line-height: 1.8;
-  color: var(--color-text-secondary);
+  color: var(--color-text);
   margin-bottom: 1.25rem;
 }
 
