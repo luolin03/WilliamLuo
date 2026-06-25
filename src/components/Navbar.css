@@ -6,11 +6,12 @@
   z-index: 100;
   padding: 1rem 0;
   background: var(--color-bg);
-  transition: box-shadow 0.3s ease;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
 }
 
 .navbar.scrolled {
-  box-shadow: 0 1px 0 var(--color-border);
+  border-bottom-color: var(--color-border);
 }
 
 .navbar-inner {
@@ -23,6 +24,8 @@
   font-size: 0.9375rem;
   font-weight: 600;
   letter-spacing: -0.01em;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: opacity 0.2s ease;
 }
 
@@ -34,12 +37,19 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .navbar-links {
   display: flex;
   list-style: none;
   gap: 1.75rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.navbar-links li {
+  flex-shrink: 0;
 }
 
 .navbar-links a {
@@ -77,7 +87,7 @@
 
 @media (max-width: 480px) {
   .navbar-links {
-    gap: 1.25rem;
+    gap: 1rem;
   }
   .navbar-links a {
     font-size: 0.75rem;

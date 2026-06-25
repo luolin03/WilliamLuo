@@ -19,81 +19,109 @@ const POSTS = [
   },
 ]
 
+function renderMarkdown(content) {
+  try {
+    return marked(content)
+  } catch {
+    return content.replace(/</g, '&lt;').replace(/\n/g, '<br/>')
+  }
+}
+
 export default function Blog() {
   const [activePost, setActivePost] = useState(null)
+  const [html, setHtml] = useState('')
   const [revealed, setRevealed] = useState(false)
   const listRef = useRef(null)
+  const postRef = useRef(null)
 
-  // When switching back to list view, reveal it immediately
+  // Reveal logic for list view
   useEffect(() => {
-    if (!activePost && listRef.current) {
-      setRevealed(false)
-      const el = listRef.current
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setRevealed(true)
-            observer.disconnect()
-          }
-        },
-        { threshold: 0.05 }
-      )
-      observer.observe(el)
-      // Fallback: show after 300ms even if not in viewport
-      const timer = setTimeout(() => setRevealed(true), 300)
-      return () => {
-        observer.disconnect()
-        clearTimeout(timer)
-      }
+    if (activePost) return
+    setRevealed(false)
+    const el = listRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setRevealed(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.05 }
+    )
+    observer.observe(el)
+    const timer = setTimeout(() => setRevealed(true), 400)
+    return () => {
+      observer.disconnect()
+      clearTimeout(timer)
     }
   }, [activePost])
 
-  if (activePost) {
-    return (
-      <section id="blog" className="section" style={{ paddingTop: '8rem' }}>
-        <div className="container">
-          <button className="blog-back" onClick={() => setActivePost(null)}>
-            <FiArrowLeft size={14} />
-            Back
-          </button>
-          <article
-            className="blog-post"
-            dangerouslySetInnerHTML={{ __html: marked(activePost.content) }}
-          />
-        </div>
-      </section>
-    )
+  // Scroll post into view
+  useEffect(() => {
+    if (activePost && postRef.current) {
+      setTimeout(() => {
+        postRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 150)
+    }
+  }, [activePost])
+
+  const openPost = async (slug) => {
+    try {
+      const res = await fetch(`/posts/${slug}.md`)
+      const text = await res.text()
+      setHtml(renderMarkdown(text))
+      setActivePost(slug)
+    } catch {
+      setHtml('<p>Failed to load post.</p>')
+      setActivePost(slug)
+    }
   }
 
+  const closePost = () => setActivePost(null)
+
   return (
-    <section
-      id="blog"
-      className={`section reveal${revealed ? ' revealed' : ''}`}
-      ref={listRef}
-    >
-      <div className="container">
-        <p className="section-label">Blog</p>
-        <div className="blog-list">
-          {POSTS.map(({ slug, title, date, description }) => (
-            <button
-              key={slug}
-              className="blog-item"
-              onClick={async () => {
-                const res = await fetch(`/posts/${slug}.md`)
-                const content = await res.text()
-                setActivePost({ content })
-                window.scrollTo(0, 0)
-              }}
-            >
-              <div className="blog-info">
-                <h3 className="blog-title">{title}</h3>
-                <p className="blog-desc">{description}</p>
-              </div>
-              <time className="blog-date">{date}</time>
+    <>
+      {activePost && (
+        <section id="blog" className="section" ref={postRef} style={{ paddingTop: '8rem' }}>
+          <div className="container">
+            <button className="blog-back" onClick={closePost}>
+              <FiArrowLeft size={14} />
+              Back
             </button>
-          ))}
+            <article
+              className="blog-post"
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+          </div>
+        </section>
+      )}
+
+      <section
+        id={activePost ? undefined : 'blog'}
+        className={`section reveal${revealed ? ' revealed' : ''}`}
+        ref={listRef}
+        style={activePost ? { display: 'none' } : undefined}
+      >
+        <div className="container">
+          <p className="section-label">Blog</p>
+          <div className="blog-list">
+            {POSTS.map(({ slug, title, date, description }) => (
+              <button
+                key={slug}
+                className="blog-item"
+                onClick={() => openPost(slug)}
+              >
+                <div className="blog-info">
+                  <h3 className="blog-title">{title}</h3>
+                  <p className="blog-desc">{description}</p>
+                </div>
+                <time className="blog-date">{date}</time>
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
