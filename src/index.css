@@ -131,3 +131,40 @@ p {
 .link:hover::after {
   width: 100%;
 }
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+  :root {
+    --section-gap: 5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --section-gap: 3.5rem;
+  }
+  .container {
+    padding: 0 1.25rem;
+  }
+  body {
+    font-size: 15px;
+  }
+  h2 {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --section-gap: 2.75rem;
+  }
+  .container {
+    padding: 0 1rem;
+  }
+  body {
+    font-size: 14px;
+  }
+  h2 {
+    font-size: 1.25rem;
+  }
+}

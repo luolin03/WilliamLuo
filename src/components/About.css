@@ -11,3 +11,18 @@
 .about-text p:last-child {
   margin-bottom: 0;
 }
+
+@media (max-width: 600px) {
+  .about-text p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .about-text p {
+    font-size: 0.8125rem;
+    line-height: 1.7;
+  }
+}

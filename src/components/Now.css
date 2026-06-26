@@ -35,3 +35,19 @@
 .now + .section {
   padding-top: 0;
 }
+
+@media (max-width: 600px) {
+  .now-text {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+  .now-badge {
+    font-size: 0.6875rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .now-text {
+    font-size: 0.875rem;
+  }
+}

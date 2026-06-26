@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import './Navbar.css'
 
 const NAV_LINKS = [
@@ -11,6 +11,7 @@ const NAV_LINKS = [
 
 export default function Navbar({ theme, onToggleTheme }) {
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -18,12 +19,23 @@ export default function Navbar({ theme, onToggleTheme }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Close menu on route change / link click
+  const closeMenu = useCallback(() => setMenuOpen(false), [])
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
   return (
     <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
       <div className="navbar-inner container">
-        <a href="#" className="navbar-name">
+        <a href="#" className="navbar-name" onClick={closeMenu}>
           William Luo
         </a>
+
+        {/* ——— Desktop links ——— */}
         <div className="navbar-right">
           <ul className="navbar-links">
             {NAV_LINKS.map(({ href, label }) => (
@@ -32,6 +44,7 @@ export default function Navbar({ theme, onToggleTheme }) {
               </li>
             ))}
           </ul>
+
           <button
             className="theme-toggle"
             onClick={onToggleTheme}
@@ -55,7 +68,29 @@ export default function Navbar({ theme, onToggleTheme }) {
               </svg>
             )}
           </button>
+
+          {/* ——— Hamburger button ——— */}
+          <button
+            className={`hamburger${menuOpen ? ' open' : ''}`}
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label="Toggle menu"
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
+      </div>
+
+      {/* ——— Mobile overlay ——— */}
+      <div className={`mobile-menu${menuOpen ? ' open' : ''}`}>
+        <ul className="mobile-menu-links">
+          {NAV_LINKS.map(({ href, label }) => (
+            <li key={href}>
+              <a href={href} onClick={closeMenu}>{label}</a>
+            </li>
+          ))}
+        </ul>
       </div>
     </nav>
   )

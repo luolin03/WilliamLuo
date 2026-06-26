@@ -201,12 +201,70 @@
   display: none;
 }
 
+/* Keep pre/code blocks from breaking layout on small screens */
+.blog-post pre {
+  -webkit-overflow-scrolling: touch;
+}
+
+.blog-post table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
 @media (max-width: 600px) {
+  .blog-post {
+    max-width: 100%;
+  }
   .blog-post h1 {
     font-size: 1.5rem;
+  }
+  .blog-post h2 {
+    font-size: 1.15rem;
+    margin-top: 2rem;
+  }
+  .blog-post h3 {
+    font-size: 0.9375rem;
+  }
+  .blog-post p,
+  .blog-post li {
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+  .blog-post pre {
+    padding: 0.875rem 1rem;
+    margin-left: -0.25rem;
+    margin-right: -0.25rem;
+    border-radius: 6px;
+  }
+  .blog-post pre code {
+    font-size: 0.75rem;
   }
   .blog-item {
     flex-direction: column;
     gap: 0.5rem;
+  }
+  .blog-back {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .blog-post h1 {
+    font-size: 1.35rem;
+  }
+  .blog-post h2 {
+    font-size: 1.05rem;
+  }
+  .blog-post p,
+  .blog-post li {
+    font-size: 0.8125rem;
+  }
+  .blog-post pre {
+    padding: 0.75rem;
+    font-size: 0.6875rem;
+  }
+  .blog-post pre code {
+    font-size: 0.6875rem;
   }
 }

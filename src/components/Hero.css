@@ -52,15 +52,23 @@
   margin-bottom: 0;
 }
 
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 10rem;
+  }
+}
+
 @media (max-width: 600px) {
   .hero {
-    padding-top: 8rem;
+    padding-top: 7rem;
+    padding-bottom: 2rem;
   }
   .hero-name {
     font-size: 2.5rem;
   }
   .hero-name-cn {
     font-size: 1.25rem;
+    margin-bottom: 1.5rem;
   }
   .hero-tagline {
     font-size: 1.1rem;
@@ -68,5 +76,33 @@
   .hero-avatar {
     width: 80px;
     height: 80px;
+    margin-bottom: 2rem;
+  }
+  .hero-bio {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero {
+    padding-top: 6rem;
+  }
+  .hero-name {
+    font-size: 2rem;
+  }
+  .hero-name-cn {
+    font-size: 1.1rem;
+  }
+  .hero-tagline {
+    font-size: 1rem;
+  }
+  .hero-avatar {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 1.5rem;
+  }
+  .hero-bio {
+    font-size: 0.8125rem;
+    line-height: 1.7;
   }
 }

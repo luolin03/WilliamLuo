@@ -7,3 +7,18 @@
   color: var(--color-text-tertiary);
   margin: 0;
 }
+
+@media (max-width: 600px) {
+  .footer {
+    padding: 1.5rem 0 3rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .footer {
+    padding: 1rem 0 2.5rem;
+  }
+  .footer-text {
+    font-size: 0.6875rem;
+  }
+}

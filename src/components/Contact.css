@@ -30,3 +30,19 @@
   border-color: var(--color-border-hover);
   background: var(--color-border);
 }
+
+@media (max-width: 600px) {
+  .contact-text {
+    font-size: 0.875rem;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .social-links {
+    flex-direction: column;
+  }
+  .social-link {
+    justify-content: center;
+  }
+}

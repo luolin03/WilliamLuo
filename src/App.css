@@ -10,3 +10,11 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+@media (max-width: 600px) {
+  .reveal {
+    transform: translateY(16px);
+    transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
