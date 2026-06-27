@@ -1,5 +1,5 @@
 .hero {
-  padding-top: 12rem;
+  padding-top: 5rem;
   padding-bottom: 3rem;
 }
 
@@ -54,13 +54,13 @@
 
 @media (max-width: 768px) {
   .hero {
-    padding-top: 10rem;
+    padding-top: 4.5rem;
   }
 }
 
 @media (max-width: 600px) {
   .hero {
-    padding-top: 8.5rem;
+    padding-top: 4rem;
     padding-bottom: 2rem;
   }
   .hero-name {
@@ -85,7 +85,7 @@
 
 @media (max-width: 380px) {
   .hero {
-    padding-top: 7.5rem;
+    padding-top: 3.5rem;
   }
   .hero-name {
     font-size: 2rem;
