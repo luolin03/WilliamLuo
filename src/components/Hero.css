@@ -60,7 +60,7 @@
 
 @media (max-width: 600px) {
   .hero {
-    padding-top: 7rem;
+    padding-top: 8.5rem;
     padding-bottom: 2rem;
   }
   .hero-name {
@@ -85,7 +85,7 @@
 
 @media (max-width: 380px) {
   .hero {
-    padding-top: 6rem;
+    padding-top: 7.5rem;
   }
   .hero-name {
     font-size: 2rem;
